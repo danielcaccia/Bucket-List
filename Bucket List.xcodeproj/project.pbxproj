@@ -13,6 +13,7 @@
 		875BF2A12655BDA200741DC4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 875BF29F2655BDA200741DC4 /* Main.storyboard */; };
 		875BF2A32655BDA400741DC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 875BF2A22655BDA400741DC4 /* Assets.xcassets */; };
 		875BF2A62655BDA400741DC4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 875BF2A42655BDA400741DC4 /* LaunchScreen.storyboard */; };
+		8791033526571A7600033D7D /* BucketItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8791033426571A7600033D7D /* BucketItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		875BF2A22655BDA400741DC4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		875BF2A52655BDA400741DC4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		875BF2A72655BDA400741DC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8791033426571A7600033D7D /* BucketItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,13 +60,46 @@
 			children = (
 				875BF2992655BDA200741DC4 /* AppDelegate.swift */,
 				875BF29B2655BDA200741DC4 /* SceneDelegate.swift */,
-				875BF29D2655BDA200741DC4 /* BucketListViewController.swift */,
-				875BF29F2655BDA200741DC4 /* Main.storyboard */,
-				875BF2A22655BDA400741DC4 /* Assets.xcassets */,
-				875BF2A42655BDA400741DC4 /* LaunchScreen.storyboard */,
+				879103302657199C00033D7D /* Model */,
+				87910331265719AA00033D7D /* View */,
+				87910332265719B500033D7D /* Controller */,
+				8791033326571A0A00033D7D /* Supporting Files */,
 				875BF2A72655BDA400741DC4 /* Info.plist */,
 			);
 			path = "Bucket List";
+			sourceTree = "<group>";
+		};
+		879103302657199C00033D7D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8791033426571A7600033D7D /* BucketItem.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		87910331265719AA00033D7D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				875BF29F2655BDA200741DC4 /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		87910332265719B500033D7D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				875BF29D2655BDA200741DC4 /* BucketListViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		8791033326571A0A00033D7D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				875BF2A22655BDA400741DC4 /* Assets.xcassets */,
+				875BF2A42655BDA400741DC4 /* LaunchScreen.storyboard */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,6 +172,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8791033526571A7600033D7D /* BucketItem.swift in Sources */,
 				875BF29E2655BDA200741DC4 /* BucketListViewController.swift in Sources */,
 				875BF29A2655BDA200741DC4 /* AppDelegate.swift in Sources */,
 				875BF29C2655BDA200741DC4 /* SceneDelegate.swift in Sources */,

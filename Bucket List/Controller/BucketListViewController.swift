@@ -9,14 +9,15 @@ import UIKit
 
 class BucketListViewController: UITableViewController {
 
+    var bucketItemArray = [BucketItem]()
+    
     override func viewDidLoad() {
-        
         super.viewDidLoad()
+        
         
     }
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        
         var bucketItemTitle = UITextField()
         var bucketItemDescription = UITextField()
         
@@ -24,6 +25,10 @@ class BucketListViewController: UITableViewController {
         
         let cancelItem = UIAlertAction(title: "Cancel", style: .default, handler: nil)
         let addItem = UIAlertAction(title: "Add Item", style: .default) { (addItem) in
+            let newBucketItem = BucketItem()
+
+            newBucketItem.title = bucketItemTitle.text ?? "New Item"
+            newBucketItem.description = bucketItemDescription.text ?? ""
             
             self.tableView.reloadData()
         }
@@ -42,41 +47,31 @@ class BucketListViewController: UITableViewController {
         alert.addAction(addItem)
         
         present(alert, animated: true, completion: nil)
-        
     }
     
     //MARK: - TableView Datasource Methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        // return count of rows
-        
-        return 1
-        
+        return bucketItemArray.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "BucketItemCell", for: indexPath)
+        let currentItem = bucketItemArray[indexPath.row]
         
-//        cell.textLabel?.text = the cell title here
+        cell.textLabel?.text = currentItem.title
+        cell.accessoryType = currentItem.checked ? .checkmark : .none
         
         return cell
-        
     }
  
     //MARK: - TableView Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        bucketItemArray[indexPath.row].checked = !bucketItemArray[indexPath.row].checked
         
-        if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .none
-        } else {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-        }
-
+        tableView.reloadData()
         tableView.deselectRow(at: indexPath, animated: true)
-        
     }
     
 }
