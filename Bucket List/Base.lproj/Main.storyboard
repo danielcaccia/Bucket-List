@@ -31,7 +31,16 @@
                             <outlet property="delegate" destination="gKt-h3-AKn" id="6oS-xO-wFa"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Bucket List" id="ZHa-fR-9I7"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Bucket List" id="ZHa-fR-9I7">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="qhu-zk-i0K">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="addButtonPressed:" destination="gKt-h3-AKn" id="FRJ-ut-eeh"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TeK-BM-BLA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -63,10 +72,10 @@
     </scenes>
     <resources>
         <namedColor name="HeaderBGColor">
-            <color red="0.19607843137254902" green="0.34901960784313724" blue="0.44313725490196076" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.19599999487400055" green="0.34900000691413879" blue="0.44299998879432678" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="HeaderTextColor">
-            <color red="0.92156862745098034" green="0.36078431372549019" blue="0.40784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.92199999094009399" green="0.36100000143051147" blue="0.40799999237060547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
