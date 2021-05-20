@@ -14,7 +14,7 @@ class BucketListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        loadItems()
     }
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
@@ -30,7 +30,7 @@ class BucketListViewController: UITableViewController {
             newBucketItem.title = bucketItemTitle.text ?? "New Item"
             newBucketItem.description = bucketItemDescription.text ?? ""
             
-            self.tableView.reloadData()
+            self.saveItems()
         }
         
         alert.addTextField { (alertTitleTextField) in
@@ -64,14 +64,27 @@ class BucketListViewController: UITableViewController {
         
         return cell
     }
- 
+    
     //MARK: - TableView Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         bucketItemArray[indexPath.row].checked = !bucketItemArray[indexPath.row].checked
         
-        tableView.reloadData()
+        saveItems()
+        
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    //MARK: - Model Manipulation Methods
+    
+    func saveItems() {
+        // persist all data
+        
+        tableView.reloadData()
+    }
+    
+    func loadItems() {
+        
     }
     
 }
