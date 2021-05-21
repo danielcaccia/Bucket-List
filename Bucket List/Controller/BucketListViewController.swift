@@ -52,7 +52,48 @@ class BucketListViewController: UITableViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    //MARK: - TableView Delegate Methods
+//MARK: - Model Manipulation Methods
+        
+    func saveItems() {
+        do {
+            try context.save()
+        } catch {
+            print("Error saving context: \(error)")
+        }
+        
+        tableView.reloadData()
+    }
+    
+    func loadItems(with request: NSFetchRequest<BucketItem> = BucketItem.fetchRequest()) {
+        do {
+            bucketItemArray = try context.fetch(request)
+        } catch {
+            print("Error fetching data from context: \(error)")
+        }
+        
+        tableView.reloadData()
+    }
+
+//MARK: - TableView Datasource Methods
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return bucketItemArray.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BucketItemCell", for: indexPath)
+        let currentItem = bucketItemArray[indexPath.row]
+        
+        cell.textLabel?.text = currentItem.title
+        cell.detailTextLabel?.text = currentItem.desc
+        
+        return cell
+    }
+}
+
+//MARK: - TableView Delegate Methods
+
+extension BucketListViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var bucketItemTitle = UITextField()
@@ -99,47 +140,38 @@ class BucketListViewController: UITableViewController {
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
+
+}
+
+//MARK: -  UISearchBar Delegate Methods
+
+extension BucketListViewController: UISearchBarDelegate {
     
-    //MARK: - TableView Datasource Methods
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return bucketItemArray.count
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "BucketItemCell", for: indexPath)
-        let currentItem = bucketItemArray[indexPath.row]
-        
-        cell.textLabel?.text = currentItem.title
-        cell.detailTextLabel?.text = currentItem.desc
-        
-        return cell
-    }
-    
-    //MARK: - Model Manipulation Methods
-    
-    func saveItems() {
-        do {
-            try context.save()
-        } catch {
-            print("Error saving context: \(error)")
-        }
-        
-        tableView.reloadData()
-    }
-    
-    func loadItems() {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         let request: NSFetchRequest<BucketItem> = BucketItem.fetchRequest()
-        do {
-            bucketItemArray = try context.fetch(request)
-        } catch {
-            print("Error fetching data from context: \(error)")
+        
+        request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
+        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        
+        loadItems(with: request)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0 {
+            loadItems()
+
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        } else {
+            searchBarSearchButtonClicked(searchBar)
         }
     }
     
 }
 
 //MARK: - Extensions
+
 extension UITextField {
 
     var isEmpty: Bool {
