@@ -1,14 +1,16 @@
 //
-//  ViewController.swift
+//  BucketListViewController.swift
 //  Bucket List
 //
 //  Created by Daniel Caccia on 19/05/21.
 //
 
 import UIKit
+import CoreData
 
 class BucketListViewController: UITableViewController {
 
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var bucketItemArray = [BucketItem]()
     
     override func viewDidLoad() {
@@ -25,11 +27,12 @@ class BucketListViewController: UITableViewController {
         
         let cancelItem = UIAlertAction(title: "Cancel", style: .default, handler: nil)
         let addItem = UIAlertAction(title: "Add Item", style: .default) { (addItem) in
-            let newBucketItem = BucketItem()
+            let newBucketItem = BucketItem(context: self.context)
 
-            newBucketItem.title = bucketItemTitle.text ?? "New Item"
-            newBucketItem.description = bucketItemDescription.text ?? ""
+            newBucketItem.title = !bucketItemTitle.isEmpty ? bucketItemTitle.text : "New Bucket Item"
+            newBucketItem.desc = bucketItemDescription.text
             
+            self.bucketItemArray.append(newBucketItem)
             self.saveItems()
         }
         
@@ -39,7 +42,7 @@ class BucketListViewController: UITableViewController {
         }
         
         alert.addTextField { (alertDescriptionTextField) in
-            alertDescriptionTextField.placeholder = "Enter new item description"
+            alertDescriptionTextField.placeholder = "Enter item description"
             bucketItemDescription = alertDescriptionTextField
         }
         
@@ -47,6 +50,54 @@ class BucketListViewController: UITableViewController {
         alert.addAction(addItem)
         
         present(alert, animated: true, completion: nil)
+    }
+    
+    //MARK: - TableView Delegate Methods
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var bucketItemTitle = UITextField()
+        var bucketItemDescription = UITextField()
+        
+        let currentItem = bucketItemArray[indexPath.row]
+        
+        let alert = UIAlertController(title: "Bucket List Item", message: "", preferredStyle: .alert)
+        
+        let goBack = UIAlertAction(title: "Back", style: .default, handler: nil)
+        let modifyItem = UIAlertAction(title: "Modify", style: .default) { (modifyItem) in
+            self.bucketItemArray[indexPath.row].title = !bucketItemTitle.isEmpty ? bucketItemTitle.text : "New Bucket Item"
+            self.bucketItemArray[indexPath.row].desc = bucketItemDescription.text
+
+            self.saveItems()
+        }
+        
+        let deleteItem = UIAlertAction(title: "Delete", style: .destructive) { [self] (deleteItem) in
+            context.delete(bucketItemArray[indexPath.row])
+            
+            self.bucketItemArray.remove(at: indexPath.row)
+            self.saveItems()
+        }
+        
+        alert.addTextField { (alertTitleTextField) in
+            alertTitleTextField.placeholder = "Item title"
+            alertTitleTextField.text = currentItem.title
+            
+            bucketItemTitle = alertTitleTextField
+        }
+        
+        alert.addTextField { (alertDescriptionTextField) in
+            alertDescriptionTextField.placeholder = "Item description"
+            alertDescriptionTextField.text = currentItem.desc
+            
+            bucketItemDescription = alertDescriptionTextField
+        }
+        
+        alert.addAction(goBack)
+        alert.addAction(modifyItem)
+        alert.addAction(deleteItem)
+        
+        present(alert, animated: true, completion: nil)
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     //MARK: - TableView Datasource Methods
@@ -60,31 +111,39 @@ class BucketListViewController: UITableViewController {
         let currentItem = bucketItemArray[indexPath.row]
         
         cell.textLabel?.text = currentItem.title
-        cell.accessoryType = currentItem.checked ? .checkmark : .none
+        cell.detailTextLabel?.text = currentItem.desc
         
         return cell
-    }
-    
-    //MARK: - TableView Delegate Methods
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        bucketItemArray[indexPath.row].checked = !bucketItemArray[indexPath.row].checked
-        
-        saveItems()
-        
-        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     //MARK: - Model Manipulation Methods
     
     func saveItems() {
-        // persist all data
+        do {
+            try context.save()
+        } catch {
+            print("Error saving context: \(error)")
+        }
         
         tableView.reloadData()
     }
     
     func loadItems() {
-        
+        let request: NSFetchRequest<BucketItem> = BucketItem.fetchRequest()
+        do {
+            bucketItemArray = try context.fetch(request)
+        } catch {
+            print("Error fetching data from context: \(error)")
+        }
+    }
+    
+}
+
+//MARK: - Extensions
+extension UITextField {
+
+    var isEmpty: Bool {
+        return text?.trimmingCharacters(in: .whitespaces) == ""
     }
     
 }

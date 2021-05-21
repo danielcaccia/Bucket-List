@@ -7,16 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		87545EDE2657AD84005E638A /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 87545EDC2657AD84005E638A /* DataModel.xcdatamodeld */; };
 		875BF29A2655BDA200741DC4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875BF2992655BDA200741DC4 /* AppDelegate.swift */; };
 		875BF29C2655BDA200741DC4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875BF29B2655BDA200741DC4 /* SceneDelegate.swift */; };
 		875BF29E2655BDA200741DC4 /* BucketListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875BF29D2655BDA200741DC4 /* BucketListViewController.swift */; };
 		875BF2A12655BDA200741DC4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 875BF29F2655BDA200741DC4 /* Main.storyboard */; };
 		875BF2A32655BDA400741DC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 875BF2A22655BDA400741DC4 /* Assets.xcassets */; };
 		875BF2A62655BDA400741DC4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 875BF2A42655BDA400741DC4 /* LaunchScreen.storyboard */; };
-		8791033526571A7600033D7D /* BucketItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8791033426571A7600033D7D /* BucketItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		87545EDD2657AD84005E638A /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		875BF2962655BDA200741DC4 /* Bucket List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bucket List.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		875BF2992655BDA200741DC4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		875BF29B2655BDA200741DC4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -25,7 +26,6 @@
 		875BF2A22655BDA400741DC4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		875BF2A52655BDA400741DC4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		875BF2A72655BDA400741DC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8791033426571A7600033D7D /* BucketItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,7 +72,7 @@
 		879103302657199C00033D7D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				8791033426571A7600033D7D /* BucketItem.swift */,
+				87545EDC2657AD84005E638A /* DataModel.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -172,7 +172,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8791033526571A7600033D7D /* BucketItem.swift in Sources */,
+				87545EDE2657AD84005E638A /* DataModel.xcdatamodeld in Sources */,
 				875BF29E2655BDA200741DC4 /* BucketListViewController.swift in Sources */,
 				875BF29A2655BDA200741DC4 /* AppDelegate.swift in Sources */,
 				875BF29C2655BDA200741DC4 /* SceneDelegate.swift in Sources */,
@@ -377,6 +377,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		87545EDC2657AD84005E638A /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				87545EDD2657AD84005E638A /* DataModel.xcdatamodel */,
+			);
+			currentVersion = 87545EDD2657AD84005E638A /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 875BF28E2655BDA200741DC4 /* Project object */;
 }
