@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		87545EDE2657AD84005E638A /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 87545EDC2657AD84005E638A /* DataModel.xcdatamodeld */; };
+		8756028326587CA100723FC9 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875602812658670900723FC9 /* CategoryTableViewController.swift */; };
 		875BF29A2655BDA200741DC4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875BF2992655BDA200741DC4 /* AppDelegate.swift */; };
 		875BF29C2655BDA200741DC4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875BF29B2655BDA200741DC4 /* SceneDelegate.swift */; };
 		875BF29E2655BDA200741DC4 /* BucketListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875BF29D2655BDA200741DC4 /* BucketListViewController.swift */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		87545EDD2657AD84005E638A /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		875602812658670900723FC9 /* CategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
 		875BF2962655BDA200741DC4 /* Bucket List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bucket List.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		875BF2992655BDA200741DC4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		875BF29B2655BDA200741DC4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				875BF29D2655BDA200741DC4 /* BucketListViewController.swift */,
+				875602812658670900723FC9 /* CategoryTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -174,6 +177,7 @@
 			files = (
 				87545EDE2657AD84005E638A /* DataModel.xcdatamodeld in Sources */,
 				875BF29E2655BDA200741DC4 /* BucketListViewController.swift in Sources */,
+				8756028326587CA100723FC9 /* CategoryTableViewController.swift in Sources */,
 				875BF29A2655BDA200741DC4 /* AppDelegate.swift in Sources */,
 				875BF29C2655BDA200741DC4 /* SceneDelegate.swift in Sources */,
 			);

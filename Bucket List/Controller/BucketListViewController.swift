@@ -11,43 +11,46 @@ import CoreData
 class BucketListViewController: UITableViewController {
 
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var bucketItemArray = [BucketItem]()
+    var items = [Item]()
+    var selectedCategory: Category? {
+        didSet {
+            loadItems()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        loadItems()
     }
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        var bucketItemTitle = UITextField()
-        var bucketItemDescription = UITextField()
+        var itemTitle = UITextField()
+        var itemDescription = UITextField()
         
         let alert = UIAlertController(title: "Add New Bucket List Item", message: "", preferredStyle: .alert)
         
         let cancelItem = UIAlertAction(title: "Cancel", style: .default, handler: nil)
         let addItem = UIAlertAction(title: "Add Item", style: .default) { (addItem) in
-            let newBucketItem = BucketItem(context: self.context)
+            let newItem = Item(context: self.context)
 
-            newBucketItem.title = !bucketItemTitle.isEmpty ? bucketItemTitle.text : "New Bucket Item"
-            newBucketItem.desc = bucketItemDescription.text
+            newItem.title = !itemTitle.isEmpty ? itemTitle.text : "New Item"
+            newItem.desc = itemDescription.text
+            newItem.parentCategory = self.selectedCategory
             
-            self.bucketItemArray.append(newBucketItem)
+            self.items.append(newItem)
             self.saveItems()
-        }
-        
-        alert.addTextField { (alertTitleTextField) in
-            alertTitleTextField.placeholder = "Create new item"
-            bucketItemTitle = alertTitleTextField
-        }
-        
-        alert.addTextField { (alertDescriptionTextField) in
-            alertDescriptionTextField.placeholder = "Enter item description"
-            bucketItemDescription = alertDescriptionTextField
         }
         
         alert.addAction(cancelItem)
         alert.addAction(addItem)
+        alert.addTextField { (titleTextField) in
+            titleTextField.placeholder = "Create new item"
+            itemTitle = titleTextField
+        }
+        
+        alert.addTextField { (descriptionTextField) in
+            descriptionTextField.placeholder = "Enter item description"
+            itemDescription = descriptionTextField
+        }
         
         present(alert, animated: true, completion: nil)
     }
@@ -64,9 +67,17 @@ class BucketListViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    func loadItems(with request: NSFetchRequest<BucketItem> = BucketItem.fetchRequest()) {
+    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest(), predicate: NSPredicate? = nil) {
+        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
+        
+        if let additionalPredicate = predicate {
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, additionalPredicate])
+        } else {
+            request.predicate = categoryPredicate
+        }
+        
         do {
-            bucketItemArray = try context.fetch(request)
+            items = try context.fetch(request)
         } catch {
             print("Error fetching data from context: \(error)")
         }
@@ -77,59 +88,53 @@ class BucketListViewController: UITableViewController {
 //MARK: - TableView Datasource Methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return bucketItemArray.count
+        return items.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "BucketItemCell", for: indexPath)
-        let currentItem = bucketItemArray[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath)
         
-        cell.textLabel?.text = currentItem.title
-        cell.detailTextLabel?.text = currentItem.desc
+        cell.textLabel?.text = items[indexPath.row].title
+        cell.detailTextLabel?.text = items[indexPath.row].desc
         
         return cell
     }
-}
 
 //MARK: - TableView Delegate Methods
-
-extension BucketListViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var bucketItemTitle = UITextField()
-        var bucketItemDescription = UITextField()
-        
-        let currentItem = bucketItemArray[indexPath.row]
+        var itemTitle = UITextField()
+        var itemDescription = UITextField()
         
         let alert = UIAlertController(title: "Bucket List Item", message: "", preferredStyle: .alert)
         
         let goBack = UIAlertAction(title: "Back", style: .default, handler: nil)
         let modifyItem = UIAlertAction(title: "Modify", style: .default) { (modifyItem) in
-            self.bucketItemArray[indexPath.row].title = !bucketItemTitle.isEmpty ? bucketItemTitle.text : "New Bucket Item"
-            self.bucketItemArray[indexPath.row].desc = bucketItemDescription.text
+            self.items[indexPath.row].title = !itemTitle.isEmpty ? itemTitle.text : "New Bucket Item"
+            self.items[indexPath.row].desc = itemDescription.text
 
             self.saveItems()
         }
         
         let deleteItem = UIAlertAction(title: "Delete", style: .destructive) { [self] (deleteItem) in
-            context.delete(bucketItemArray[indexPath.row])
+            context.delete(items[indexPath.row])
             
-            self.bucketItemArray.remove(at: indexPath.row)
+            self.items.remove(at: indexPath.row)
             self.saveItems()
         }
         
-        alert.addTextField { (alertTitleTextField) in
-            alertTitleTextField.placeholder = "Item title"
-            alertTitleTextField.text = currentItem.title
+        alert.addTextField { (titleTextField) in
+            titleTextField.placeholder = "Item title"
+            titleTextField.text = self.items[indexPath.row].title
             
-            bucketItemTitle = alertTitleTextField
+            itemTitle = titleTextField
         }
         
-        alert.addTextField { (alertDescriptionTextField) in
-            alertDescriptionTextField.placeholder = "Item description"
-            alertDescriptionTextField.text = currentItem.desc
+        alert.addTextField { (descriptionTextField) in
+            descriptionTextField.placeholder = "Item description"
+            descriptionTextField.text = self.items[indexPath.row].desc
             
-            bucketItemDescription = alertDescriptionTextField
+            itemDescription = descriptionTextField
         }
         
         alert.addAction(goBack)
@@ -148,12 +153,12 @@ extension BucketListViewController {
 extension BucketListViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        let request: NSFetchRequest<BucketItem> = BucketItem.fetchRequest()
+        let request: NSFetchRequest<Item> = Item.fetchRequest()
+        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
         
-        request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
         request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
         
-        loadItems(with: request)
+        loadItems(with: request, predicate: predicate)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

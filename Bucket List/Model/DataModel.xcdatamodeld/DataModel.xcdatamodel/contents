@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20E241" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="BucketItem" representedClassName=".BucketItem" syncable="YES" codeGenerationType="class">
+    <entity name="Category" representedClassName=".Category" syncable="YES" codeGenerationType="class">
+        <attribute name="name" attributeType="String" maxValueString="150"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="parentCategory" inverseEntity="Item"/>
+    </entity>
+    <entity name="Item" representedClassName=".Item" syncable="YES" codeGenerationType="class">
         <attribute name="desc" optional="YES" attributeType="String" maxValueString="100"/>
         <attribute name="title" attributeType="String" maxValueString="100"/>
+        <relationship name="parentCategory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="items" inverseEntity="Category"/>
     </entity>
     <elements>
-        <element name="BucketItem" positionX="-63" positionY="-18" width="128" height="59"/>
+        <element name="Item" positionX="-14278.02264404297" positionY="-3333.194244384766" width="128" height="88"/>
+        <element name="Category" positionX="-14491.67517089844" positionY="-3318.106201171875" width="128" height="73"/>
     </elements>
 </model>

@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Bucket List-->
+        <!--Bucket List Items-->
         <scene sceneID="fzV-gt-glh">
             <objects>
                 <tableViewController id="gKt-h3-AKn" customClass="BucketListViewController" customModule="Bucket_List" customModuleProvider="target" sceneMemberID="viewController">
@@ -15,9 +15,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="CellBGColor"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="gUJ-XX-boC">
+                            <rect key="frame" x="0.0" y="0.0" width="390" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <color key="barTintColor" name="CellBGColor"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="gKt-h3-AKn" id="txZ-0W-Ent"/>
+                            </connections>
+                        </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="BucketItemCell" textLabel="F7t-xG-edZ" detailTextLabel="Dyi-V4-G7I" style="IBUITableViewCellStyleSubtitle" id="T8t-hF-f2H">
-                                <rect key="frame" x="0.0" y="24.333333969116211" width="390" height="43.666667938232422"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemCell" textLabel="F7t-xG-edZ" detailTextLabel="Dyi-V4-G7I" style="IBUITableViewCellStyleSubtitle" id="T8t-hF-f2H">
+                                <rect key="frame" x="0.0" y="68.333333969116211" width="390" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="T8t-hF-f2H" id="QdO-uK-u0r">
                                     <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
@@ -48,7 +57,7 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Bucket List" id="ZHa-fR-9I7">
+                    <navigationItem key="navigationItem" title="Bucket List Items" id="ZHa-fR-9I7">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="qhu-zk-i0K">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
@@ -60,7 +69,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TeK-BM-BLA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1045" y="-562"/>
+            <point key="canvasLocation" x="1798" y="-562"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ybu-GY-9At">
@@ -78,17 +87,57 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="gKt-h3-AKn" kind="relationship" relationship="rootViewController" id="zyU-yZ-DWI"/>
+                        <segue destination="R0z-F0-CTL" kind="relationship" relationship="rootViewController" id="3Qk-Ee-i41"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hkg-TT-Qat" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="387.69230769230768" y="-561.61137440758296"/>
         </scene>
+        <!--Bucket List Categories-->
+        <scene sceneID="hkc-NU-lcZ">
+            <objects>
+                <tableViewController id="R0z-F0-CTL" customClass="CategoryTableViewController" customModule="Bucket_List" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Cqu-u3-FWS">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" name="CellBGColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryCell" id="UzJ-tp-Nxf">
+                                <rect key="frame" x="0.0" y="24.333333969116211" width="390" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UzJ-tp-Nxf" id="YHf-75-RKv">
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" name="CellBGColor"/>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="R0z-F0-CTL" id="tO5-39-8Fg"/>
+                            <outlet property="delegate" destination="R0z-F0-CTL" id="vT1-Dx-oXK"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Bucket List Categories" id="Jmp-9L-j7D">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="CXu-Q7-P8X">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="addButtonPressed:" destination="R0z-F0-CTL" id="fm4-Ig-uv0"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="gKt-h3-AKn" kind="show" identifier="GoToItems" id="hKP-i7-c21"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b1a-Gp-z72" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1094" y="-562"/>
+        </scene>
     </scenes>
     <resources>
         <namedColor name="CellBGColor">
-            <color red="0.9215773344" green="0.9215573668" blue="0.92156118149999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.92199999094009399" green="0.92199999094009399" blue="0.92199999094009399" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="HeaderBGColor">
             <color red="0.19599999487400055" green="0.34900000691413879" blue="0.44299998879432678" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
