@@ -1,0 +1,12 @@
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "Dyi-V4-G7I"; */
+"Dyi-V4-G7I.text" = "Sottotitolo";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "F7t-xG-edZ"; */
+"F7t-xG-edZ.text" = "Titolo";
+
+/* Class = "UINavigationItem"; title = "Bucket List Categories"; ObjectID = "Jmp-9L-j7D"; */
+"Jmp-9L-j7D.title" = "Categoria Promemoria";
+
+/* Class = "UINavigationItem"; title = "Bucket List Items"; ObjectID = "ZHa-fR-9I7"; */
+"ZHa-fR-9I7.title" = "Lista Promemoria";

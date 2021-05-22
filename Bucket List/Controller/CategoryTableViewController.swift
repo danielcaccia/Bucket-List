@@ -26,13 +26,13 @@ class CategoryTableViewController: UITableViewController {
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         var textField = UITextField()
         
-        let alert = UIAlertController(title: "Add New Category", message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: "lbl_add_new_cat".localized, message: "", preferredStyle: .alert)
         
-        let cancelCategory = UIAlertAction(title: "Cancel", style: .default, handler: nil)
-        let addCategory = UIAlertAction(title: "Add Category", style: .default) { (addCategory) in
+        let cancelCategory = UIAlertAction(title: "lbl_cancel".localized, style: .default, handler: nil)
+        let addCategory = UIAlertAction(title: "lbl_add".localized, style: .default) { (addCategory) in
             let newCategory = Category(context: self.context)
 
-            newCategory.name = !textField.isEmpty ? textField.text : "New Category"
+            newCategory.name = !textField.isEmpty ? textField.text : "lbl_new_cat".localized
 
             self.categories.append(newCategory)
             self.saveCategories()
@@ -43,7 +43,7 @@ class CategoryTableViewController: UITableViewController {
         alert.addAction(cancelCategory)
         alert.addAction(addCategory)
         alert.addTextField { (field) in
-            field.placeholder = "Enter category name"
+            field.placeholder = "lbl_cat_name".localized
             textField = field
         }
         
@@ -108,7 +108,7 @@ extension CategoryTableViewController: SwipeTableViewCellDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         guard orientation == .right else { return nil }
 
-        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
+        let deleteAction = SwipeAction(style: .destructive, title: "lbl_delete".localized) { action, indexPath in
             self.context.delete(self.categories[indexPath.row])
             
             self.categories.remove(at: indexPath.row)

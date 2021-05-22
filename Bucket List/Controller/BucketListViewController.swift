@@ -28,13 +28,13 @@ class BucketListViewController: UITableViewController {
         var itemTitle = UITextField()
         var itemDescription = UITextField()
         
-        let alert = UIAlertController(title: "Add New Bucket List Item", message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: "lbl_add_new_item".localized, message: "", preferredStyle: .alert)
         
-        let cancelItem = UIAlertAction(title: "Cancel", style: .default, handler: nil)
-        let addItem = UIAlertAction(title: "Add Item", style: .default) { (addItem) in
+        let cancelItem = UIAlertAction(title: "lbl_cancel".localized, style: .default, handler: nil)
+        let addItem = UIAlertAction(title: "lbl_add".localized, style: .default) { (addItem) in
             let newItem = Item(context: self.context)
 
-            newItem.title = !itemTitle.isEmpty ? itemTitle.text : "New Item"
+            newItem.title = !itemTitle.isEmpty ? itemTitle.text : "lbl_new_item".localized
             newItem.desc = itemDescription.text
             newItem.parentCategory = self.selectedCategory
             
@@ -45,12 +45,12 @@ class BucketListViewController: UITableViewController {
         alert.addAction(cancelItem)
         alert.addAction(addItem)
         alert.addTextField { (titleTextField) in
-            titleTextField.placeholder = "Create new item"
+            titleTextField.placeholder = "lbl_item_title".localized
             itemTitle = titleTextField
         }
         
         alert.addTextField { (descriptionTextField) in
-            descriptionTextField.placeholder = "Enter item description"
+            descriptionTextField.placeholder = "lbl_item_desc".localized
             itemDescription = descriptionTextField
         }
         
@@ -108,17 +108,17 @@ class BucketListViewController: UITableViewController {
         var itemTitle = UITextField()
         var itemDescription = UITextField()
         
-        let alert = UIAlertController(title: "Bucket List Item", message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: "lbl_item".localized, message: "", preferredStyle: .alert)
         
-        let goBack = UIAlertAction(title: "Back", style: .default, handler: nil)
-        let modifyItem = UIAlertAction(title: "Modify", style: .default) { (modifyItem) in
-            self.items[indexPath.row].title = !itemTitle.isEmpty ? itemTitle.text : "New Bucket Item"
+        let goBack = UIAlertAction(title: "lbl_back".localized, style: .default, handler: nil)
+        let modifyItem = UIAlertAction(title: "lbl_modify".localized, style: .default) { (modifyItem) in
+            self.items[indexPath.row].title = !itemTitle.isEmpty ? itemTitle.text : "lbl_new_item".localized
             self.items[indexPath.row].desc = itemDescription.text
 
             self.saveItems()
         }
         
-        let deleteItem = UIAlertAction(title: "Delete", style: .destructive) { [self] (deleteItem) in
+        let deleteItem = UIAlertAction(title: "lbl_delete".localized, style: .destructive) { [self] (deleteItem) in
             context.delete(items[indexPath.row])
             
             self.items.remove(at: indexPath.row)
@@ -126,14 +126,14 @@ class BucketListViewController: UITableViewController {
         }
         
         alert.addTextField { (titleTextField) in
-            titleTextField.placeholder = "Item title"
+            titleTextField.placeholder = "lbl_title".localized
             titleTextField.text = self.items[indexPath.row].title
             
             itemTitle = titleTextField
         }
         
         alert.addTextField { (descriptionTextField) in
-            descriptionTextField.placeholder = "Item description"
+            descriptionTextField.placeholder = "lbl_desc".localized
             descriptionTextField.text = self.items[indexPath.row].desc
             
             itemDescription = descriptionTextField
@@ -173,16 +173,6 @@ extension BucketListViewController: UISearchBarDelegate {
         } else {
             searchBarSearchButtonClicked(searchBar)
         }
-    }
-    
-}
-
-//MARK: - Extensions
-
-extension UITextField {
-
-    var isEmpty: Bool {
-        return text?.trimmingCharacters(in: .whitespaces) == ""
     }
     
 }
