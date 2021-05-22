@@ -20,6 +20,8 @@ class BucketListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.separatorStyle = .none
     }
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
